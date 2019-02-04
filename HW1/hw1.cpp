@@ -4,17 +4,11 @@ using namespace std;
 
 class ArrayFun{
 private:
-  const int oneK = 1000;
-  const int tenK = 10000;
-  const int hunK = 100000;
   int* dynArray = nullptr;
   int arraySize;
 public:
-  //void oneKArray();
-  //void tenKArray();
-  //void hunKArray();
   void newArray();
-  void incArray(int*);
+  void incArray(int);
   void addElement();
 
 };
@@ -22,36 +16,28 @@ public:
 int main() {
   ArrayFun hw1;
 
-  /*
-
-  for (int i = 0; i < 200000; i++)
-            cout << "OMG ";
-
-
-    auto timing = stop - start;
-    // cout << chrono::milliseconds(timing).count() << " milliseconds\n"
-    cout << "\n\n" << chrono::duration_cast<chrono::milliseconds>(stop - start).count() << " milli\n";
-    return 0;
-
-    */
+  const int oneK = 1000;
+  const int tenK = 10000;
+  const int hunK = 100000;
 
   hw1.newArray();
 
-  hw1.incArray(&oneK);
-  hw1.incArray(&tenK);
-  hw1.incArray(&hunK);
+  hw1.incArray(oneK);
+//  hw1.incArray(tenK);
+ // hw1.incArray(hunK);
 }
 
 void ArrayFun::newArray()
 {
   dynArray = new int[1];
+	arraySize = 0;
 }
 
-void ArrayFun::incArray(int* newSize)
+void ArrayFun::incArray(int newSize)
 {
   auto start = chrono::high_resolution_clock::now();
 
-  for (int i = 0; i < *newSize; i++)
+  for (int i = 0; i < newSize; i++)
     addElement();
 
   auto stop = chrono::high_resolution_clock::now();
@@ -60,9 +46,11 @@ void ArrayFun::incArray(int* newSize)
 void ArrayFun::addElement()
 {
   int* tmpSize = nullptr;
-  tmpSize = new int[dynArray + 1];
+	arraySize += 1;
+  tmpSize = new int[arraySize + 1];
+	cout << "Size: " << arraySize << "\n";
 
-  for (int i = 0; i < (dynArray.size() + 1); i++)
+  for (int i = 0; i < (arraySize + 1); i++)
     tmpSize[i] = dynArray[i];
 
   delete [] dynArray;
