@@ -7,6 +7,7 @@ private:
   int* dynArray = nullptr;
   int arraySize;
 public:
+
   // function prototypes
   void sayHi();
   void newArray();
@@ -24,6 +25,7 @@ int main() {
 	const int oneM = 1000000;
 	const int tenM = 10000000;
 
+  // program greeting
   hw1.sayHi();
 
   for (int i = 0; i < 3; i++)
@@ -79,6 +81,7 @@ void ArrayFun::sayHi()
 
 void ArrayFun::newArray()
 {
+  // array and counter resets
   dynArray = new int[1];
 	arraySize = 0;
 }
@@ -88,6 +91,7 @@ void ArrayFun::incArray(int newSize)
   // start the timer
 	auto start = chrono::high_resolution_clock::now();
 
+  // increment element up to new array size (newSize)
   for (int i = 0; i < newSize; i++)
 		addElement();
 
