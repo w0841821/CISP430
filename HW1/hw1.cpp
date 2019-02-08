@@ -7,8 +7,11 @@ private:
   int* dynArray = nullptr;
   int arraySize;
 public:
+<<<<<<< HEAD
   // function prototypes
   void sayHi();
+=======
+>>>>>>> a31ca8897f614362276a240727985bb9ece35c99
   void newArray();
   void incArray(int);
   void addElement();
@@ -21,6 +24,7 @@ int main() {
   const int oneK = 1000;
   const int tenK = 10000;
   const int hunK = 100000;
+<<<<<<< HEAD
 	const int oneM = 1000000;
 	const int tenM = 10000000;
 
@@ -75,6 +79,14 @@ void ArrayFun::sayHi()
   cout << "Also, how long it takes, on average, to increment each element.\n\n";
   cout << "Press Enter to continue.";
   cin.get();
+=======
+
+  hw1.newArray();
+
+  hw1.incArray(oneK);
+//  hw1.incArray(tenK);
+ // hw1.incArray(hunK);
+>>>>>>> a31ca8897f614362276a240727985bb9ece35c99
 }
 
 void ArrayFun::newArray()
@@ -99,8 +111,13 @@ void ArrayFun::incArray(int newSize)
   // output array size to see where we're at
   cout << "\nFinal arraySize: " << arraySize << "\n";
 
+<<<<<<< HEAD
   // print time in microseconds since the smaller arrays are very quick...
 	cout << "\n" << chrono::duration_cast<chrono::microseconds>(timing).count() << " microseconds\n";
+=======
+  for (int i = 0; i < newSize; i++)
+    addElement();
+>>>>>>> a31ca8897f614362276a240727985bb9ece35c99
 
   // ...but also print in milliseconds since some take longer...
 	cout << chrono::duration_cast<chrono::milliseconds>(timing).count() << " milliseconds\n\n";
@@ -112,10 +129,20 @@ void ArrayFun::incArray(int newSize)
 
 void ArrayFun::addElement()
 {
+<<<<<<< HEAD
   // increase element counter
   arraySize += 1;
 	int* tmpSize = nullptr;
   tmpSize = new int[arraySize];
+=======
+  int* tmpSize = nullptr;
+	arraySize += 1;
+  tmpSize = new int[arraySize + 1];
+	cout << "Size: " << arraySize << "\n";
+
+  for (int i = 0; i < (arraySize + 1); i++)
+    tmpSize[i] = dynArray[i];
+>>>>>>> a31ca8897f614362276a240727985bb9ece35c99
 
   delArray();
 
