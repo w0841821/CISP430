@@ -2,47 +2,24 @@
 #include <chrono>
 using namespace std;
 
-<<<<<<< HEAD
-
-=======
->>>>>>> 3944eb3f2c21019df43dffaedbe017382b0e6bd5
 class ListTest
 {
 private:
   int* dynArray = nullptr;
   int oldSize, newSize;
-<<<<<<< HEAD
 
 public:
   void newArray();
   void incArray(int);
-=======
-public:
-  void newArray();
-  void incArray();
->>>>>>> 3944eb3f2c21019df43dffaedbe017382b0e6bd5
   void delArray();
   void populate();
   void find();
   void add();
   void size();
   void print();
-<<<<<<< HEAD
 	void incPopDel(int);
 };
 
-=======
-};
-
-template <class T>
-T NewIncPopDel (T size)
-{
-  ListTest.newArray();
-  ListTest.incArray(size);
-  ListTest.populate();
-  ListTest.delArray();
-}
->>>>>>> 3944eb3f2c21019df43dffaedbe017382b0e6bd5
 
 int main()
 {
@@ -56,7 +33,6 @@ int main()
 
   srand(time(0));
 
-<<<<<<< HEAD
 	hw2.newArray();
 
   hw2.incPopDel(oneK);
@@ -69,20 +45,10 @@ int main()
   hw2.print();
 
 	hw2.delArray();
-=======
-  //hw2.newArray();
-  NewIncPopDel<int oneK>;
-  hw2.populate();
-  hw2.find();
-  hw2.add();
-  hw2.size();
-  hw2.print();
->>>>>>> 3944eb3f2c21019df43dffaedbe017382b0e6bd5
 }
 
 void ListTest::newArray()
 {
-<<<<<<< HEAD
   dynArray = new int[10];
 }
 
@@ -96,16 +62,6 @@ void ListTest::incPopDel(int size)
 void ListTest::incArray(int newSize)
 {
   // newSize *= 2;
-=======
-  oldSize = 10;
-  newSize = oldSize;
-  dynArray = new int[10];
-}
-
-void ListTest::incArray()
-{
-  newSize *= 2;
->>>>>>> 3944eb3f2c21019df43dffaedbe017382b0e6bd5
 
   int* tmpArr = nullptr;
   tmpArr = new int[newSize];
@@ -118,11 +74,8 @@ void ListTest::incArray()
   dynArray = tmpArr;
 
   tmpArr = nullptr;
-<<<<<<< HEAD
 
 	cout << "Array size is " << newSize << ".\n";
-=======
->>>>>>> 3944eb3f2c21019df43dffaedbe017382b0e6bd5
 }
 
 void ListTest::delArray()
@@ -165,11 +118,7 @@ void ListTest::find()
 
   auto timing = stop - start;
 
-<<<<<<< HEAD
   cout << "The search took " << chrono::duration_cast<chrono::microseconds>(timing).count() << " microseconds\n\n";
-=======
-  cout << "\nThe search took " << chrono::duration_cast<chrono::microseconds>(timing).count() << " microseconds\n";
->>>>>>> 3944eb3f2c21019df43dffaedbe017382b0e6bd5
 }
 
 void ListTest::add()
