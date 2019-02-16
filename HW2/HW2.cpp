@@ -9,11 +9,14 @@ private:
   int oldSize, endSize;
 
 public:
+  // function prototypes
   void newArray();
-  void incPopFind(int);
+  void incPop(int);
   void incArray(int);
   void populate();
   void find();
+  void printSize();
+  void printDump();
   void delArray();
 };
 
@@ -21,6 +24,7 @@ int main()
 {
   ListTest hw2;
 
+  const int twen = 20;
   const int oneK = 1000;
   const int tenK = 10000;
   const int hunK = 100000;
@@ -32,10 +36,16 @@ int main()
   {
     hw2.newArray();
 
-    hw2.incPopFind(oneK);
-    hw2.incPopFind(tenK);
-    hw2.incPopFind(hunK);
-    hw2.incPopFind(oneM);
+    hw2.populate();
+    hw2.printSize();
+    hw2.find();
+    hw2.printDump();
+
+    hw2.incPop(twen);
+    hw2.incPop(oneK);
+    hw2.incPop(tenK);
+    hw2.incPop(hunK);
+    hw2.incPop(oneM);
 
     hw2.delArray();
   }
@@ -44,23 +54,29 @@ int main()
 void ListTest::newArray()
 {
   dynArray = new int[10];
-  oldSize = 10;
+  oldSize = 0;
+  endSize = 10;
 }
 
-void ListTest::incPopFind(int size)
+void ListTest::incPop(int size)
 {
   incArray(size);
   populate();
+  printSize();
   find();
+  if (size <= 1000)
+    printDump();
 }
 
 void ListTest::incArray(int size)
 {
+  // end size of the incremented array is equal to the passed variable
   endSize = size;
 
   int* tmpArr = nullptr;
   tmpArr = new int[size];
 
+  // copy the elements up to the previous size of the array
   for (int i = 0; i < oldSize; i++)
     tmpArr[i] = dynArray[i];
 
@@ -69,8 +85,6 @@ void ListTest::incArray(int size)
   dynArray = tmpArr;
 
   tmpArr = nullptr;
-
-  cout << "Array size is " << size << ".\n";
 }
 
 void ListTest::populate()
@@ -86,11 +100,10 @@ void ListTest::populate()
 
 void ListTest::find()
 {
+  // generate a random number to find
   int x = (rand() % 1000);
   int i;
   bool found = false;
-
-  cout << "Searching for: " << x << endl;
 
   auto start = chrono::high_resolution_clock::now();
 
@@ -112,7 +125,24 @@ void ListTest::find()
 
   auto timing = stop - start;
 
-  cout << "The search took " << chrono::duration_cast<chrono::nanoseconds>(timing).count() << " nanoseconds.\n\n";
+  cout << "The search took " << chrono::duration_cast<chrono::nanoseconds>(timing).count() << " nanoseconds.\n";
+}
+
+void ListTest::printSize()
+{
+  cout << "\nArray size is " << endSize << ".\n";
+}
+
+void ListTest::printDump()
+{
+  for (int i = 0; i < endSize; i++)
+  {
+    if (i == (endSize - 1))
+      cout << dynArray[i] << "\n";
+    else
+      cout << dynArray[i] << ",";
+  }
+
 }
 
 void ListTest::delArray()
@@ -121,7 +151,9 @@ void ListTest::delArray()
 }
 
 /*
+           ns = nanosecond
            μs = microsecond
+1 thousand ns = 1 μs
 1 thousand μs = 0.001 seconds
  1 million μs = 1 second
 
@@ -129,6 +161,8 @@ element avg = total search time divided by number of elements searched
 
  Array size --  run 1 (element #       -- run 2 (element #       -- run 3 (element #
                           element avg)              element avg)              element avg)
+         10
+         20
        1000   7979 μs ( 911  8.759 μs)  1176 μs ( 779  1.509 μs)  1480 μs (1000  1.480 μs)
       10000   4545 μs ( 527  8.624 μs)  2057 μs (1349  1.525 μs)    47 μs (  13  3.615 μs)
      100000    598 μs ( 389  1.537 μs)   236 μs ( 142  1.662 μs)   309 μs ( 178  1.736 μs)
