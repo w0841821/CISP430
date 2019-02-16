@@ -32,15 +32,27 @@ int main()
 
   srand(time(0));
 
+  // loop three times to get some decent numbers
   for (int i = 0; i < 3; i++)
   {
+    // start with our 10 element array
     hw2.newArray();
 
+    // populate with random numbers
     hw2.populate();
+
+    // print the size of the array
     hw2.printSize();
+
+    // find a random number
     hw2.find();
+
+    // print the values of the 10 elements
     hw2.printDump();
 
+    // increase, populate, print size, find random number, and print elements
+    // not printing elements above one thousand as it gets messy
+    // see: if statement in incPop()
     hw2.incPop(twen);
     hw2.incPop(oneK);
     hw2.incPop(tenK);
@@ -76,7 +88,7 @@ void ListTest::incArray(int size)
   int* tmpArr = nullptr;
   tmpArr = new int[size];
 
-  // copy the elements up to the previous size of the array
+  // copy the elements up to the previous size (oldSize) of the array
   for (int i = 0; i < oldSize; i++)
     tmpArr[i] = dynArray[i];
 
@@ -105,6 +117,7 @@ void ListTest::find()
   int i;
   bool found = false;
 
+  // start the timing for the search
   auto start = chrono::high_resolution_clock::now();
 
   for (i = 0; i < endSize; i++)
@@ -117,6 +130,7 @@ void ListTest::find()
   }
 
   auto stop = chrono::high_resolution_clock::now();
+  // timing ends above
 
   if (found)
     cout << "Random number " << x << " was found at element " << i << ".\n";
@@ -137,12 +151,14 @@ void ListTest::printDump()
 {
   for (int i = 0; i < endSize; i++)
   {
+    // print a line break if we're at the end...
     if (i == (endSize - 1))
       cout << dynArray[i] << "\n";
+
+    // ...otherwise insert a comma
     else
       cout << dynArray[i] << ",";
   }
-
 }
 
 void ListTest::delArray()
