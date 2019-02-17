@@ -1,3 +1,7 @@
+// HW2.cpp
+// Erroll Abrahamian, CISP 430
+// 02-17-2019
+
 #include <iostream>
 #include <chrono>
 using namespace std;
