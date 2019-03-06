@@ -179,12 +179,14 @@ void ListTest::delArray()
 
 element avg = total search time divided by number of elements searched
 
+10- and 20-element arrays did not have their number found.
+
  Array size --  run 1 (element #       -- run 2 (element #       -- run 3 (element #
                           element avg)              element avg)              element avg)
-         10
-         20
-       1000   7979 μs ( 911  8.759 μs)  1176 μs ( 779  1.509 μs)  1480 μs (1000  1.480 μs)
-      10000   4545 μs ( 527  8.624 μs)  2057 μs (1349  1.525 μs)    47 μs (  13  3.615 μs)
-     100000    598 μs ( 389  1.537 μs)   236 μs ( 142  1.662 μs)   309 μs ( 178  1.736 μs)
-    1000000   3836 μs (2437  1.574 μs)   925 μs ( 582  1.589 μs)   699 μs ( 428  1.633 μs)
+         10    569 ns ( ---  56.90 ns)   125 ns ( ---  12.50 ns)    66 ns ( ---   6.60 ns)
+         20    323 ns ( ---  16.15 ns)   164 ns ( ---   8.20 ns)    87 ns ( ---   4.35 ns)
+       1000   1229 ns ( 117  10.50 ns)  1211 ns ( 267   4.54 ns)  1283 ns ( 532   2.41 ns)
+      10000   5917 ns ( 700   8.45 ns)   352 ns (  67   5.25 ns)  7351 ns (2997   2.45 ns)
+     100000   7957 ns ( 912   8.72 ns)   526 ns ( 132   3.98 ns)  2110 ns ( 873   2.42 ns)
+    1000000   2327 ns ( 449   5.18 ns)  6529 ns (2663   2.45 ns)  1262 ns ( 553   2.28 ns)
 */
