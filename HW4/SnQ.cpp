@@ -87,9 +87,6 @@ int main()
   srand(time(0));
 
   hw4Stack.sayHi();
-/*
-
-*/
 
   hw4Stack.main();
   hw4Queue.main();
