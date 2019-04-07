@@ -47,17 +47,18 @@ public:
   int treeSize(BinNode *tree);
   void insert(BinNode *&tree, int data);
   bool find(BinNode *tree, int data);
-  void inOrder(BinNode *tree);
   void preOrder(BinNode *tree);
   void burnTheTree(BinNode *&tree);
+  void hitEnter();
 };
 
 int main()
 {
+  BinTree hw5;
   srand(time(0));
   sayHi();
 
-  BinTree hw5;
+  hw5.hitEnter();
 
   int numNodes[] = {10, oneK, tenK, fifK, otfK, tftK};
   int numTrees = calcTreeSize(numNodes);
@@ -70,23 +71,27 @@ int main()
 
 void sayHi()
 {
-  cout << "Hi!!\n\n";
+  cout << "Are you ready to build a binary search tree, and then...\n";
+  cout << "...search it?\n";
 }
 
 void BinTree::growBurn(int size)
 {
+	nodeNum = 0;
   growTree(size);
-  // inOrder(tree);
+
   nodeNum = 0;
-  if (size <= 1000)
+  if (size == 10)
     preOrder(tree);
   burnTheTree(tree);
+  hitEnter();
 }
 
 void BinTree::growTree(int size)
 {
   int randNum;
 
+  // start the timing for insertion
   auto start = chrono::high_resolution_clock::now();
 
   for (int i = 0; i < size; i++) {
@@ -96,28 +101,55 @@ void BinTree::growTree(int size)
 
   auto stop = chrono::high_resolution_clock::now();
   auto timing = stop - start;
+  // stop the timing and calculate insertion time
 
-  cout << "There are " << treeSize(tree) << " nodes on the tree.\n";
-  cout << "Time to grow the tree: " << chrono::duration_cast<chrono::microseconds>(timing).count() << " microseconds.\n\n";//, with a top node of [" << tree->data << "].\n\n";
+  cout << "\nThere are " << treeSize(tree) << " nodes on the tree.\n";
+  cout << "Time to grow the tree: " << chrono::duration_cast<chrono::nanoseconds>(timing).count() << " nanoseconds.\n";//, with a top node of [" << tree->data << "].\n\n";
+
+	randNum = (rand() % 1000);
+
+  // start the timing for search
+	start = chrono::high_resolution_clock::now();
+
+	bool found = find(tree, randNum);
+
+	stop = chrono::high_resolution_clock::now();
+	timing = stop - start;
+  // stop the timing and calculate search time
+
+  // if the number was found...
+	if (found) {
+    cout << "Random number " << randNum << " found!\n";
+		cout << "Time to find random number: " << chrono::duration_cast<chrono::nanoseconds>(timing).count() << " nanoseconds.\n";
+	// ...or wasn't found
+	}
+	else {
+    cout << "Random number " << randNum << " not found!\n";
+    cout << "Failed search took " << chrono::duration_cast<chrono::nanoseconds>(timing).count() << " nanoseconds.\n";
+	}
 }
 
 bool BinTree::isEmpty(BinNode *tree)
 {
+  // return true if the tree is null aka empty
   return tree == nullptr;
 }
 
 bool BinTree::isLeaf(BinNode *tree)
 {
+  // return true if left and right nodes are empty aka this is a leaf
   return tree->left == nullptr && tree->right == nullptr;
 }
 
 bool BinTree::hasLeft(BinNode *tree)
 {
+  // return true if left node is not empty
   return tree->left != nullptr;
 }
 
 bool BinTree::hasRight(BinNode *tree)
 {
+  // return true if right node is not empty
   return tree->right != nullptr;
 }
 
@@ -131,8 +163,10 @@ int BinTree::treeSize(BinNode *tree)
 
 void BinTree::insert(BinNode *&tree, int data)
 {
+  // if we have an empty tree, grow one!
   if (isEmpty(tree))
     tree = new BinNode{data, nullptr, nullptr};
+  // ...otherwise don't grow one and just add to it
   else
   {
     if (data < tree->data)
@@ -157,55 +191,27 @@ bool BinTree::find(BinNode *tree, int data)
   }
 }
 
-void BinTree::inOrder(BinNode *tree)
-{
-  if (tree)
-  {
-    inOrder(tree->left);
-    cout << "[" << tree->data << "]";
-    inOrder(tree->right);
-  }
-}
-
 void BinTree::preOrder(BinNode *tree)
 {
-  /*
   if (tree)
   {
-    cout << "[" << tree->data << "]";
-    cout << "\nGoing left.... ";
-    preOrder(tree->left);
-    cout << "\nGoing right... ";
-    preOrder(tree->right);
-  }
-  */
-
-  if (tree)
-  {
+    // increment node number for printing/tracking
     nodeNum++;
     if (isLeaf(tree))
-    {
       cout << "to leaf "<< nodeNum << "... [" << tree->data << "]";
-    }
     else
     {
-      if (nodeNum > 1) {
+      if (nodeNum > 1)
         cout << "to node " << nodeNum << "... [" << tree->data << "]";
-        // cout << "node " << nodeNum << "->" << nodeNum + 1 << "... [" << tree->data << "]";
-      }
       else
-      {
         cout << "Node 1: [" << tree->data << "]";
-      }
 
       if (hasLeft(tree)) {
-        cout << "\nGoing left... ";//" to node " << nodeNum << "... ";
-      //  nodeNum++;
+        cout << "\nGoing left... ";
         preOrder(tree->left);
       }
       if (hasRight(tree)) {
-        cout << "\nGoing right.. ";//to node " << nodeNum << "... ";
-      //  nodeNum++;
+        cout << "\nGoing right.. ";
         preOrder(tree->right);
       }
     }
@@ -222,3 +228,20 @@ void BinTree::burnTheTree(BinNode *&tree)
     tree = nullptr;
   }
 }
+
+void BinTree::hitEnter()
+{
+  cout << "\n\nPress Enter to continue.\n";
+  cin.ignore();
+}
+
+/*
+Insertion and search both use pre-order
+TREE SIZE  -- GROW TIME -- FIND TIME
+       10       7918 ns           --
+     1000     744759 ns      1572 ns
+    10000    2985979 ns       408 ns
+    50000   65528153 ns       311 ns
+   125000  189714903 ns       294 ns
+   250000  729750297 ns       631 ns
+*/
